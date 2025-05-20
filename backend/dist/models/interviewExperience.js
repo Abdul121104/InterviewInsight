@@ -68,6 +68,7 @@ const InterviewExperienceSchema = new mongoose_1.Schema({
     wasOfferExtended: { type: Boolean },
     ctcOrStipend: { type: String },
     anonymous: { type: Boolean, default: false },
+    viewCount: { type: Number, default: 0 },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model('InterviewExperience', InterviewExperienceSchema, 'interview_post');
 //# sourceMappingURL=interviewExperience.js.map

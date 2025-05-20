@@ -12,8 +12,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllInterviews = exports.createInterview = void 0;
+exports.getAllInterviews = exports.createInterview = exports.getViewCount = exports.getInterviewByIdAndIncrementViews = void 0;
 const interviewExperience_1 = __importDefault(require("../models/interviewExperience"));
+// Get one interview by ID and increment viewCount
+const getInterviewByIdAndIncrementViews = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const interview = yield interviewExperience_1.default.findByIdAndUpdate(id, { $inc: { viewCount: 1 } }, { new: true });
+        if (!interview) {
+            return res.status(404).json({ error: "Interview not found" });
+        }
+        res.status(200).json(interview);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.getInterviewByIdAndIncrementViews = getInterviewByIdAndIncrementViews;
+// Optional: Get only viewCount
+const getViewCount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const interview = yield interviewExperience_1.default.findById(id).select("viewCount");
+        if (!interview) {
+            return res.status(404).json({ error: "Interview not found" });
+        }
+        res.status(200).json({ viewCount: interview.viewCount });
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.getViewCount = getViewCount;
 const createInterview = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const interview = new interviewExperience_1.default(req.body);

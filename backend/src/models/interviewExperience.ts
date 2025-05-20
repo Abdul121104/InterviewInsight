@@ -24,6 +24,7 @@ export interface IInterviewExperience extends Document {
   anonymous?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  viewCount?: number;
 }
 
 const InterviewExperienceSchema: Schema = new Schema<IInterviewExperience>(
@@ -60,6 +61,7 @@ const InterviewExperienceSchema: Schema = new Schema<IInterviewExperience>(
     wasOfferExtended: { type: Boolean },
     ctcOrStipend: { type: String },
     anonymous: { type: Boolean, default: false },
+    viewCount:{type: Number , default : 0},
   },
   { timestamps: true }
 );
