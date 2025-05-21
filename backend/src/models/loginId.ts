@@ -11,6 +11,7 @@ export interface ILoginId extends Document {
   googleName?: string;
   username?: string;
   password?: string;
+  isPasswordCorrect(candidatePassword: string): Promise<boolean>;
 }
 
 const LoginIdSchema: Schema = new Schema<ILoginId>(
@@ -64,5 +65,11 @@ LoginIdSchema.pre('save', async function(next) {
   }
   next();
 });
+
+// Method to check password
+LoginIdSchema.methods.isPasswordCorrect = async function(candidatePassword: string): Promise<boolean> {
+  if (!this.password) return false;
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 export default mongoose.model<ILoginId>('LoginId', LoginIdSchema, 'user_logins');
