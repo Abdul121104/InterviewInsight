@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Login from "../models/loginId";
+import jwt from 'jsonwebtoken';
 
 // Debug route to check existing users
 export const checkUsers = async (_req: Request, res: Response): Promise<void> => {
@@ -90,13 +91,20 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
         return;
       }
 
+      const token = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: '24h' }
+      );
+
       res.status(200).json({
         success: true,
         user: {
           id: user._id,
           email: user.email,
           name: user.name || user.googleName
-        }
+        },
+        token
       });
       return;
     }
@@ -117,13 +125,20 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       return;
     }
 
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '24h' }
+    );
+
     res.status(200).json({
       success: true,
       user: {
         id: user._id,
         email: user.email,
         name: user.name || user.username
-      }
+      },
+      token
     });
   } catch (error) {
     next(error);
