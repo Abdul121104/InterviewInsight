@@ -18,35 +18,35 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Real Interview Experiences",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Access a vast collection of real interview experiences from tech professionals. Learn from others' successes and challenges to better prepare for your interviews.",
     image: image4,
   },
   {
-    title: "Intuitive user interface",
+    title: "AI-Powered Chatbot",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Get instant answers to your interview questions and receive personalized feedback through our advanced AI chatbot. Practice your responses and improve your interview skills.",
     image: image3,
   },
   {
-    title: "AI-Powered insights",
+    title: "Community Insights",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Join a community of tech professionals sharing their interview experiences. Get valuable insights, tips, and strategies to help you succeed in your tech career.",
     image: image,
   },
 ];
 
 const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
+  "Interview Experiences",
+  "AI Chatbot",
+  "Community Support",
+  "Real-time Feedback",
+  "Interview Tips",
+  "Company Insights",
+  "Career Growth",
+  "Success Stories",
+  "Expert Advice",
 ];
 
 export const Features = () => {
@@ -56,9 +56,9 @@ export const Features = () => {
       className="container py-24 sm:py-32 space-y-8"
     >
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Many{" "}
+        Powerful{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Great Features
+          Features
         </span>
       </h2>
 
@@ -87,7 +87,7 @@ export const Features = () => {
             <CardFooter>
               <img
                 src={image}
-                alt="About feature"
+                alt={title}
                 className="w-[200px] lg:w-[300px] mx-auto"
               />
             </CardFooter>

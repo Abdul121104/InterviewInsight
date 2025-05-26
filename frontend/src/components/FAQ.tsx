@@ -13,33 +13,28 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free ChadcnUI template.",
+    question: "How can InterviewInsight help me prepare for interviews?",
+    answer: "InterviewInsight provides real interview experiences from tech professionals, an AI-powered chatbot for practice, and a supportive community where you can learn from others' experiences. You can read detailed interview stories, get instant feedback on your responses, and connect with other professionals in your field.",
     value: "item-1",
   },
   {
-    question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+    question: "Is the AI chatbot available 24/7?",
+    answer: "Yes, our AI chatbot is available 24/7 to help you practice interview questions and receive instant feedback. You can use it to simulate interview scenarios, get suggestions for improving your answers, and learn from its responses.",
     value: "item-2",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet  Consectetur natus dolores minus quibusdam?",
-    answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis necessitatibus maxime quis ipsa vitae cumque quo?",
+    question: "How do I share my interview experience?",
+    answer: "You can share your interview experience by clicking on the 'Post Interview' button in the navigation bar. You'll be guided through a simple form where you can provide details about the company, role, interview process, questions asked, and your overall experience. Your contribution helps others in the community prepare better.",
     value: "item-3",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "Is my personal information kept private?",
+    answer: "Yes, we take privacy seriously. When sharing interview experiences, you can choose to remain anonymous. We never share your personal information with third parties, and you have full control over what information you want to make public.",
     value: "item-4",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur natus?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+    question: "Can I get personalized interview preparation advice?",
+    answer: "Yes, our AI chatbot can provide personalized advice based on your specific situation, target role, and experience level. Additionally, you can connect with other community members who have experience in your target companies or roles for more specific guidance.",
     value: "item-5",
   },
 ];
@@ -80,7 +75,7 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           rel="noreferrer noopener"
-          href="#"
+          href="/contact"
           className="text-primary transition-all border-primary hover:border-b-2"
         >
           Contact us

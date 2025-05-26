@@ -10,27 +10,27 @@ interface FeatureProps {
 const features: FeatureProps[] = [
   {
     icon: <MedalIcon />,
-    title: "Accessibility",
+    title: "Create Your Profile",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Sign up and create your professional profile. Add your experience level, target roles, and areas of interest to get personalized interview preparation content.",
   },
   {
     icon: <MapIcon />,
-    title: "Community",
+    title: "Explore Experiences",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Browse through real interview experiences shared by tech professionals. Filter by company, role, or experience level to find relevant insights for your preparation.",
   },
   {
     icon: <PlaneIcon />,
-    title: "Scalability",
+    title: "Practice with AI",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Use our AI chatbot to practice interview questions, get instant feedback, and improve your responses. The AI adapts to your experience level and target role.",
   },
   {
     icon: <GiftIcon />,
-    title: "Gamification",
+    title: "Share & Learn",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Share your own interview experiences to help others and build your professional network. Earn recognition and contribute to the tech community's growth.",
   },
 ];
 
@@ -48,8 +48,7 @@ export const HowItWorks = () => {
         Step-by-Step Guide
       </h2>
       <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        Get started with InterviewInsight in four simple steps and begin your journey to interview success.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
