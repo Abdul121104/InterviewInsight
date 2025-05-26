@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", authenticateToken, validateInterviewData, createInterview);
 router.get("/", getAllInterviews);
-router.get("/:id", getInterviewByIdAndIncrementViews);         // Increment & get interview
-router.get("/:id/viewCount", getViewCount);                    // Just get view count
+router.get("/:id", getInterviewByIdAndIncrementViews);
+router.get("/:id/viewCount", getViewCount);
 
 export default router;
