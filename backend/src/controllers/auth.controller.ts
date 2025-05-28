@@ -13,7 +13,7 @@ export const checkUsers = async (_req: Request, res: Response): Promise<void> =>
     res.status(500).json({ error: "Error checking users" });
   }
 };
-
+ 
 export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { email, username, password, name, googleId, googleName } = req.body;
