@@ -20,12 +20,14 @@
     "typescript-eslint": "^8.32.1"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.7",
     "@types/cors": "^2.8.18",
     "@types/jsonwebtoken": "^9.0.9",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
+    "google-auth-library": "^9.15.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.0"
   }
