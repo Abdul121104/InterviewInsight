@@ -28,8 +28,12 @@ export function SignUp() {
     setIsLoading(true);
 
     try {
+<<<<<<< HEAD
       const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
       const response = await fetch(`${base}/api/auth/signup`, {
+=======
+      const response = await fetch("http://localhost:4000/api/auth/signup", {
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,8 +78,13 @@ export function SignUp() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex items-center justify-center min-h-screen bg-black dark:bg-black">
       <Card className="w-[400px] bg-background border-border">
+=======
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Card className="w-[400px]">
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
         <CardHeader>
           <CardTitle>Create an account</CardTitle>
           <CardDescription>Enter your information to create an account</CardDescription>

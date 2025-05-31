@@ -140,12 +140,25 @@ const MenuBar = ({ editor }: { editor: any }) => {
 };
 
 export default function SubmitInterview() {
+<<<<<<< HEAD
   const { token } = useAuth();
+=======
+  const { isAuthenticated, token } = useAuth();
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
   const navigate = useNavigate();
   const { toast } = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+<<<<<<< HEAD
+=======
+  // Redirect if not logged in
+  if (!isAuthenticated) {
+    navigate("/login");
+    return null;
+  }
+
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
   const [form, setForm] = useState({
     companyName: "",
     jobRole: "",
@@ -269,8 +282,13 @@ export default function SubmitInterview() {
       ...form,
       techStack: form.techStack.split(",").map((s) => s.trim()).filter(Boolean),
       tags: form.tags.split(",").map((s) => s.trim()).filter(Boolean),
+<<<<<<< HEAD
       interviewQA: qaEditor.getText(),
       preparationSuggestions: prepEditor.getText(),
+=======
+      interviewQA: qaEditor.getHTML(),
+      preparationSuggestions: prepEditor.getHTML(),
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
       contactDetails: {
         linkedin: form.contactLinkedin,
         email: form.contactEmail,
@@ -280,8 +298,12 @@ export default function SubmitInterview() {
     };
 
     try {
+<<<<<<< HEAD
       const base = import.meta.env.VITE_Base_api || process.env.Base_api;
       const res = await fetch(`${base}/api/interviews`, {
+=======
+      const res = await fetch("http://localhost:4000/api/interviews", {
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
         method: "POST",
         headers: {
           "Content-Type": "application/json",

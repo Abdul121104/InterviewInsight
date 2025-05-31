@@ -26,8 +26,12 @@ export function Login() {
     setIsLoading(true);
 
     try {
+<<<<<<< HEAD
       const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
       const response = await fetch(`${base}/api/auth/login`, {
+=======
+      const response = await fetch("http://localhost:4000/api/auth/login", {
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,8 +65,13 @@ export function Login() {
   };
 
   const handleGoogleSignIn = () => {
+<<<<<<< HEAD
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = `${window.location.origin}/auth/google/callback`;
+=======
+    const clientId = "620162944836-ctdgetoi6af4dnljoe6tno2g9eqm60g9.apps.googleusercontent.com";
+    const redirectUri = "http://localhost:5173/auth/google/callback";
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
     const scope = "email profile";
     const responseType = "code";
     const accessType = "offline";
@@ -74,8 +83,13 @@ export function Login() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex items-center justify-center min-h-screen bg-black dark:bg-black">
       <Card className="w-[400px] bg-background border-border">
+=======
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Card className="w-[400px]">
+>>>>>>> 4f7cb7cc16ec613363ab8ee727449f0a90683ae8
         <CardHeader>
           <CardTitle>Welcome back</CardTitle>
           <CardDescription>Enter your credentials to sign in</CardDescription>
