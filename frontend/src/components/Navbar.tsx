@@ -12,7 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
+import { useAuth } from "@/lib/auth-context";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
@@ -41,9 +41,7 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // This would come from your auth context/state management
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>("");
+  const { user, logout, isAuthenticated } = useAuth();
 
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
@@ -63,42 +61,47 @@ export const Navbar = () => {
           {/* mobile */}
           <span className="flex md:hidden">
             <ModeToggle />
-
-            <Sheet
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
                 <Menu
-                  className="flex md:hidden h-5 w-5"
+                  className="h-6 w-6"
                   onClick={() => setIsOpen(true)}
-                >
-                  <span className="sr-only">Menu Icon</span>
-                </Menu>
+                />
               </SheetTrigger>
 
-              <SheetContent side={"left"}>
+              <SheetContent>
                 <SheetHeader>
-                  <SheetTitle className="font-bold text-xl">
-                    InterviewInsight
-                  </SheetTitle>
+                  <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
-                <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {routeList.map(({ href, label }: RouteProps) => (
+                <nav className="flex flex-col gap-4 mt-4">
+                  {routeList.map((route: RouteProps, i) => (
                     <Link
                       rel="noreferrer noopener"
-                      key={label}
-                      to={href}
+                      to={route.href}
+                      key={i}
+                      className={`text-[17px] ${buttonVariants({
+                        variant: "ghost",
+                      })}`}
                       onClick={() => setIsOpen(false)}
-                      className={buttonVariants({ variant: "ghost" })}
                     >
-                      {label}
+                      {route.label}
                     </Link>
                   ))}
-                  {isLoggedIn ? (
-                    <span className={buttonVariants({ variant: "secondary" })}>
-                      {username}
-                    </span>
+                  {isAuthenticated ? (
+                    <>
+                      <span className={buttonVariants({ variant: "secondary" })}>
+                        {user?.name}
+                      </span>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setIsOpen(false);
+                        }}
+                        className={buttonVariants({ variant: "destructive" })}
+                      >
+                        Logout
+                      </button>
+                    </>
                   ) : (
                     <>
                       <Link
@@ -107,6 +110,7 @@ export const Navbar = () => {
                         className={`w-[110px] ${buttonVariants({
                           variant: "secondary",
                         })}`}
+                        onClick={() => setIsOpen(false)}
                       >
                         Sign Up
                       </Link>
@@ -116,6 +120,7 @@ export const Navbar = () => {
                         className={`w-[110px] ${buttonVariants({
                           variant: "secondary",
                         })}`}
+                        onClick={() => setIsOpen(false)}
                       >
                         Log In
                       </Link>
@@ -142,24 +147,32 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:flex gap-2">
-            {isLoggedIn ? (
-              <span className={`border ${buttonVariants({ variant: "secondary" })}`}>
-                {username}
-              </span>
+          <div className="hidden md:flex items-center gap-2">
+            {isAuthenticated ? (
+              <>
+                <span className={buttonVariants({ variant: "secondary" })}>
+                  {user?.name}
+                </span>
+                <button
+                  onClick={logout}
+                  className={buttonVariants({ variant: "destructive" })}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <>
                 <Link
                   rel="noreferrer noopener"
                   to="/signup"
-                  className={`border ${buttonVariants({ variant: "secondary" })}`}
+                  className={buttonVariants({ variant: "secondary" })}
                 >
                   Sign Up
                 </Link>
                 <Link
                   rel="noreferrer noopener"
                   to="/login"
-                  className={`border ${buttonVariants({ variant: "secondary" })}`}
+                  className={buttonVariants({ variant: "secondary" })}
                 >
                   Log In
                 </Link>

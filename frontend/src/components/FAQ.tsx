@@ -75,7 +75,7 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           rel="noreferrer noopener"
-          href="/contact"
+          href="https://www.linkedin.com/in/abdul-rahman-0a7191234/"
           className="text-primary transition-all border-primary hover:border-b-2"
         >
           Contact us

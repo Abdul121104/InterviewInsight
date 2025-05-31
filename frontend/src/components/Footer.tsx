@@ -13,82 +13,53 @@ export const Footer = () => {
             className="font-bold text-xl flex"
           >
             <LogoIcon />
-            ShadcnUI/React
+            InterviewInsight
           </a>
+          <p className="mt-4 text-muted-foreground">
+            Your trusted platform for sharing and learning from real interview experiences. 
+            Connect with professionals and prepare for your next career move.
+          </p>
         </div>
-
+        <div className="flex flex-col gap-1"></div>
         <div className="flex flex-col gap-2">
-          <h3 className="font-bold text-lg">Follow US</h3>
+          <h3 className="font-bold text-lg">Quick Links</h3>
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="/interviews"
               className="opacity-60 hover:opacity-100"
             >
-              Github
+              View Interviews
             </a>
           </div>
 
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="/submit-interview"
               className="opacity-60 hover:opacity-100"
             >
-              Twitter
+              Share Experience
             </a>
           </div>
 
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="/login"
               className="opacity-60 hover:opacity-100"
             >
-              Dribbble
-            </a>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <h3 className="font-bold text-lg">Platforms</h3>
-          <div>
-            <a
-              rel="noreferrer noopener"
-              href="#"
-              className="opacity-60 hover:opacity-100"
-            >
-              Web
-            </a>
-          </div>
-
-          <div>
-            <a
-              rel="noreferrer noopener"
-              href="#"
-              className="opacity-60 hover:opacity-100"
-            >
-              Mobile
-            </a>
-          </div>
-
-          <div>
-            <a
-              rel="noreferrer noopener"
-              href="#"
-              className="opacity-60 hover:opacity-100"
-            >
-              Desktop
+              Login
             </a>
           </div>
         </div>
-
+        
         <div className="flex flex-col gap-2">
-          <h3 className="font-bold text-lg">About</h3>
+          <h3 className="font-bold text-lg">Resources</h3>
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="#features"
               className="opacity-60 hover:opacity-100"
             >
               Features
@@ -98,17 +69,17 @@ export const Footer = () => {
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="#how-it-works"
               className="opacity-60 hover:opacity-100"
             >
-              Pricing
+              How It Works
             </a>
           </div>
 
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="#faq"
               className="opacity-60 hover:opacity-100"
             >
               FAQ
@@ -117,50 +88,35 @@ export const Footer = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h3 className="font-bold text-lg">Community</h3>
+          <h3 className="font-bold text-lg">Connect</h3>
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="https://github.com/Abdul121104"
+              target="_blank"
               className="opacity-60 hover:opacity-100"
             >
-              Youtube
+              GitHub
             </a>
           </div>
 
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="https://www.linkedin.com/in/abdul-rahman-0a7191234/"
+              target="_blank"
               className="opacity-60 hover:opacity-100"
             >
-              Discord
-            </a>
-          </div>
-
-          <div>
-            <a
-              rel="noreferrer noopener"
-              href="#"
-              className="opacity-60 hover:opacity-100"
-            >
-              Twitch
+              LinkedIn
             </a>
           </div>
         </div>
+
       </section>
 
       <section className="container pb-14 text-center">
         <h3>
-          &copy; 2024 Landing page made by{" "}
-          <a
-            rel="noreferrer noopener"
-            target="_blank"
-            href="https://www.linkedin.com/in/leopoldo-miranda/"
-            className="text-primary transition-all border-primary hover:border-b-2"
-          >
-            Leo Miranda
-          </a>
+          &copy; {new Date().getFullYear()} InterviewInsight. All rights reserved.
         </h3>
       </section>
     </footer>
