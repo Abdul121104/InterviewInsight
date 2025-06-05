@@ -10,16 +10,17 @@ import { errorHandler } from "./middlewares/errorHandler";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = parseInt(process.env.PORT || '5000', 10);
+
+// Memory optimization
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   credentials: true
 }));
-
-app.use(express.json()); // Parse incoming JSON
-app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/interviews", interviewRoutes);
@@ -28,9 +29,17 @@ app.use("/api/auth", authRoutes);
 // Error handler middleware
 app.use(errorHandler);
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // Connect DB and start server
 connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
   });
+}).catch((error) => {
+  console.error('Failed to connect to database:', error);
+  process.exit(1);
 });
