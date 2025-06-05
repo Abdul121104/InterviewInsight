@@ -14,7 +14,7 @@ export function GoogleCallback() {
     const handleGoogleCallback = async () => {
       const data = searchParams.get("data");
       const error = searchParams.get("error");
-      isLoading;
+
       if (error) {
         toast({
           title: "Error",
@@ -72,12 +72,16 @@ export function GoogleCallback() {
     handleGoogleCallback();
   }, [searchParams, navigate, login, toast]);
 
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <h2 className="text-2xl font-semibold mb-4">Processing Google Sign In...</h2>
-        <p className="text-gray-600 dark:text-gray-400">Please wait while we complete your authentication.</p>
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold mb-4">Processing Google Sign In...</h2>
+          <p className="text-gray-600 dark:text-gray-400">Please wait while we complete your authentication.</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 } 
