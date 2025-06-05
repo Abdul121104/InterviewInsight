@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  redirectUri: process.env.FRONTEND_URL + "/auth/google/callback"
+  redirectUri: "https://interview-frontend-tedn.onrender.com/api/auth/google/callback"
 });
 
 // Debug route to check existing users
@@ -198,7 +198,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const oauth2Client = new OAuth2Client({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: process.env.FRONTEND_URL + "/auth/google/callback"
+        redirectUri: "https://interview-frontend-tedn.onrender.com/api/auth/google/callback"
       });
 
       const { tokens } = await oauth2Client.getToken(code as string);
