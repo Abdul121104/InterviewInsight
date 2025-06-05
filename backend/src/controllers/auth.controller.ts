@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  redirectUri: "http://localhost:5173/auth/google/callback"
+  redirectUri: process.env.FRONTEND_URL + "/auth/google/callback"
 });
 
 // Debug route to check existing users
@@ -176,11 +176,11 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
 export const handleGoogleCallback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { code } = req.body;
+    const { code } = req.query;
     console.log('Received code:', code);
     
     if (!code) {
-      console.error('No code provided in request body');
+      console.error('No code provided in query parameters');
       res.status(400).json({ error: "Authorization code is required" });
       return;
     }
@@ -198,10 +198,10 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const oauth2Client = new OAuth2Client({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: "http://localhost:5173/auth/google/callback"
+        redirectUri: process.env.FRONTEND_URL + "/auth/google/callback"
       });
 
-      const { tokens } = await oauth2Client.getToken(code);
+      const { tokens } = await oauth2Client.getToken(code as string);
       console.log('Received tokens:', tokens);
       
       if (!tokens.id_token) {
