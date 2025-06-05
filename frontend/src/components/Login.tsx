@@ -62,7 +62,8 @@ export function Login() {
 
   const handleGoogleSignIn = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = `${window.location.origin}/api/auth/google/callback`;
+    const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
+    const redirectUri = `${base}/api/auth/google/callback`;
     const scope = "email profile";
     const responseType = "code";
     const accessType = "offline";
