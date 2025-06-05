@@ -14,7 +14,7 @@ export function GoogleCallback() {
     const handleGoogleCallback = async () => {
       const data = searchParams.get("data");
       const error = searchParams.get("error");
-
+      isLoading;
       if (error) {
         toast({
           title: "Error",
