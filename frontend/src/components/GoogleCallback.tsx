@@ -45,12 +45,11 @@ export function GoogleCallback() {
 
         console.log('Sending code to backend:', code);
         const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
-        const response = await fetch(`${base}/api/auth/google/callback`, {
-          method: "POST",
+        const response = await fetch(`${base}/api/auth/google/callback?code=${encodeURIComponent(code)}`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ code }),
           credentials: 'include'
         });
 
