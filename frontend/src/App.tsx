@@ -16,6 +16,7 @@ import SubmitInterview from "./pages/SubmitInterview";
 import { AuthProvider } from "./lib/auth-context";
 import { GoogleCallback } from "./components/GoogleCallback";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import ChatBot from "./pages/ChatBot";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               <SubmitInterview />
             </ProtectedRoute>
           } />
+          <Route path="/chatbot" element={<ProtectedRoute><ChatBot /></ProtectedRoute>} />
           <Route path="/auth/google/callback" element={<GoogleCallback />} />
         </Routes>
       </BrowserRouter>

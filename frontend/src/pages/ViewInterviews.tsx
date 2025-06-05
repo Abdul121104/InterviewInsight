@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -44,7 +43,7 @@ const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="bg-background rounded-lg shadow-lg max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
-        <button onClick={onClose} className="absolute top-2 right-2 text-lg font-bold">×</button>
+        <button onClick={onClose} className="absolute top-2 right-2 text-lg font-bold"></button>
         {children}
       </div>
     </div>
@@ -53,7 +52,7 @@ const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void
 
 // Sidebar Filters
 const SidebarFilters = ({ filters, setFilters }: { filters: Filters; setFilters: React.Dispatch<React.SetStateAction<Filters>> }) => (
-  <aside className="w-full md:w-64 bg-muted/50 p-4 rounded-lg mb-6 md:mb-0 md:mr-6">
+  <aside className="w-full md:w-64 bg-muted/50 p-4 rounded-lg mb-6 md:mb-0 md:mr-6 self-start">
     <h3 className="font-bold text-lg mb-4">Filters</h3>
     
     <div className="mb-4">
@@ -200,7 +199,6 @@ const ViewInterviews: React.FC = () => {
     sortBy: ''
   });
   const [selected, setSelected] = useState<Interview | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
