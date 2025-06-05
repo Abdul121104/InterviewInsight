@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Check, Linkedin, Brain } from "lucide-react";
 import profilePic from "../assets/pic.png";
+import { Link } from "react-router-dom";
 
 export const HeroCards = () => {
   return (
@@ -78,7 +79,9 @@ export const HeroCards = () => {
         </CardHeader>
 
         <CardContent>
-          <Button className="w-full">Try Now</Button>
+          <Link to="/chatbot">
+            <Button className="w-full">Try Now</Button>
+          </Link>
         </CardContent>
 
         <hr className="w-4/5 m-auto mb-4" />

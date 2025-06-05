@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
 import { HeroCards } from "./HeroCards";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -27,17 +28,18 @@ export const Hero = () => {
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-          <Button className="w-full md:w-1/3">Get Started</Button>
+          <Link to="/login">
+            <Button className="w-full md:w-1/3">Get Started</Button>
+          </Link>
 
-          <a
-            rel="noreferrer noopener"
-            href="/interviews"
+          <Link
+            to="/interviews"
             className={`w-full md:w-1/3 ${buttonVariants({
               variant: "outline",
             })}`}
           >
             View Interviews
-          </a>
+          </Link>
         </div>
       </div>
 
