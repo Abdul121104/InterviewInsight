@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  redirectUri: "https://interview-frontend-tedn.onrender.com/api/auth/google/callback"
+  redirectUri: process.env.GOOGLE_REDIRECT_URI
 });
 
 // Debug route to check existing users
@@ -185,7 +185,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       return;
     }
 
-    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_REDIRECT_URI) {
       console.error('Missing Google OAuth credentials');
       res.status(500).json({ error: "Server configuration error" });
       return;
@@ -198,7 +198,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const oauth2Client = new OAuth2Client({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: "https://interview-frontend-tedn.onrender.com/api/auth/google/callback"
+        redirectUri: process.env.GOOGLE_REDIRECT_URI
       });
 
       const { tokens } = await oauth2Client.getToken(code as string);
