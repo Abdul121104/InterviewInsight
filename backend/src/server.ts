@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'https://interview-frontend-tedn.onrender.com',
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Routes
