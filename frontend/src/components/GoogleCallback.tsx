@@ -57,26 +57,24 @@ export function GoogleCallback() {
         console.log('Backend response:', data);
 
         if (!response.ok) {
-          if (data.error === 'Failed to exchange code for token' && data.details === 'invalid_grant') {
-            // If the code was already used, redirect to login
-            toast({
-              title: "Session expired",
-              description: "Please try signing in again",
-              variant: "destructive",
-            });
-            navigate("/login");
-            return;
-          }
           throw new Error(data.error || data.details || "Failed to authenticate with Google");
         }
 
         if (data.success && data.user && data.token) {
+          // Store the auth data
           await login(data.user, data.token);
+          
+          // Show success message
           toast({
             title: "Success!",
             description: "You have been logged in with Google.",
           });
-          navigate("/");
+
+          // Force a small delay to ensure the toast is visible
+          setTimeout(() => {
+            // Redirect to home page
+            window.location.href = '/';
+          }, 1000);
         } else {
           throw new Error("Invalid response format from server");
         }
