@@ -8,7 +8,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Check, Linkedin, MessageSquare, Users, Brain } from "lucide-react";
+import { Check, Linkedin, Brain } from "lucide-react";
 import profilePic from "../assets/pic.png";
 
 export const HeroCards = () => {
