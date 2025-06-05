@@ -353,7 +353,7 @@ export default function SubmitInterview() {
                 <div className="space-y-2">
                   <Label>Experience Level</Label>
                   <Select 
-                    onValueChange={(v) => handleSelect("experienceLevel", v)} 
+                    onValueChange={(v:any) => handleSelect("experienceLevel", v)} 
                     value={form.experienceLevel}
                   >
                     <SelectTrigger className={errors.experienceLevel ? "border-red-500" : ""}>
@@ -401,7 +401,7 @@ export default function SubmitInterview() {
                 <div className="space-y-2">
                   <Label>Location</Label>
                   <Select 
-                    onValueChange={(v) => handleSelect("location", v)} 
+                    onValueChange={(v:any) => handleSelect("location", v)} 
                     value={form.location}
                   >
                     <SelectTrigger>
@@ -432,7 +432,7 @@ export default function SubmitInterview() {
                 <div className="space-y-2">
                   <Label>Interview Difficulty</Label>
                   <Select 
-                    onValueChange={(v) => handleSelect("interviewDifficulty", v)} 
+                    onValueChange={(v:any) => handleSelect("interviewDifficulty", v)} 
                     value={form.interviewDifficulty}
                   >
                     <SelectTrigger className={errors.interviewDifficulty ? "border-red-500" : ""}>
@@ -451,7 +451,7 @@ export default function SubmitInterview() {
                 <div className="space-y-2">
                   <Label>Interview Mode</Label>
                   <Select 
-                    onValueChange={(v) => handleSelect("interviewMode", v)} 
+                    onValueChange={(v:any) => handleSelect("interviewMode", v)} 
                     value={form.interviewMode}
                   >
                     <SelectTrigger className={errors.interviewMode ? "border-red-500" : ""}>
