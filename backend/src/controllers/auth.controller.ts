@@ -181,13 +181,13 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
     
     if (!code) {
       console.error('No code provided in query parameters');
-      res.status(400).json({ error: "Authorization code is required" });
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=no_code`);
       return;
     }
 
     if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_REDIRECT_URI) {
       console.error('Missing Google OAuth credentials');
-      res.status(500).json({ error: "Server configuration error" });
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
       return;
     }
 
@@ -206,7 +206,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       
       if (!tokens.id_token) {
         console.error('No ID token in response');
-        res.status(400).json({ error: "Invalid token response from Google" });
+        res.redirect(`${process.env.FRONTEND_URL}/login?error=invalid_token`);
         return;
       }
 
@@ -218,7 +218,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const payload = ticket.getPayload();
       if (!payload) {
         console.error('No payload in ticket');
-        res.status(400).json({ error: "Invalid Google token" });
+        res.redirect(`${process.env.FRONTEND_URL}/login?error=invalid_token`);
         return;
       }
 
@@ -254,7 +254,8 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
         { expiresIn: '24h' }
       );
 
-      res.status(200).json({
+      // Create the auth data to be passed to frontend
+      const authData = {
         success: true,
         user: {
           id: user._id,
@@ -262,16 +263,17 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
           name: user.name || user.googleName
         },
         token
-      });
-    } catch (tokenError) {
-      console.error('Error exchanging code for token:', tokenError);
-      res.status(400).json({ 
-        error: "Failed to exchange code for token",
-        details: tokenError instanceof Error ? tokenError.message : "Unknown error"
-      });
+      };
+
+      // Redirect to frontend with auth data
+      const encodedData = encodeURIComponent(JSON.stringify(authData));
+      res.redirect(`${process.env.FRONTEND_URL}/auth/google/callback?data=${encodedData}`);
+    } catch (error) {
+      console.error('Error in Google callback:', error);
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
     }
   } catch (error) {
-    console.error('Google callback error:', error);
-    next(error);
+    console.error('Error in handleGoogleCallback:', error);
+    res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
   }
 }; 

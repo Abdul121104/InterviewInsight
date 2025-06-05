@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/components/ui/use-toast";
@@ -8,61 +8,39 @@ export function GoogleCallback() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const processedCodeRef = useRef<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
-      const code = searchParams.get("code");
-      console.log('Received code from URL:', code);
+      const data = searchParams.get("data");
+      const error = searchParams.get("error");
 
-      if (!code) {
+      if (error) {
         toast({
           title: "Error",
-          description: "No authorization code received from Google",
+          description: "Failed to authenticate with Google. Please try again.",
           variant: "destructive",
         });
         navigate("/login");
         return;
       }
 
-      // Skip if we've already processed this code
-      if (processedCodeRef.current === code) {
+      if (!data) {
+        toast({
+          title: "Error",
+          description: "No authentication data received",
+          variant: "destructive",
+        });
+        navigate("/login");
         return;
       }
-
-      // Skip if we're already loading
-      if (isLoading) {
-        return;
-      }
-
-      setIsLoading(true);
-      processedCodeRef.current = code;
 
       try {
-        // Clear the URL parameters immediately to prevent reuse
-        window.history.replaceState({}, document.title, window.location.pathname);
-
-        console.log('Sending code to backend:', code);
-        const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
-        const response = await fetch(`${base}/api/auth/google/callback?code=${encodeURIComponent(code)}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: 'include'
-        });
-
-        const data = await response.json();
-        console.log('Backend response:', data);
-
-        if (!response.ok) {
-          throw new Error(data.error || data.details || "Failed to authenticate with Google");
-        }
-
-        if (data.success && data.user && data.token) {
+        const authData = JSON.parse(decodeURIComponent(data));
+        
+        if (authData.success && authData.user && authData.token) {
           // Store the auth data
-          await login(data.user, data.token);
+          await login(authData.user, authData.token);
           
           // Show success message
           toast({
@@ -76,13 +54,13 @@ export function GoogleCallback() {
             window.location.href = '/';
           }, 1000);
         } else {
-          throw new Error("Invalid response format from server");
+          throw new Error("Invalid authentication data");
         }
       } catch (error) {
-        console.error('Google callback error:', error);
+        console.error('Error processing auth data:', error);
         toast({
           title: "Error",
-          description: error instanceof Error ? error.message : "Something went wrong",
+          description: "Failed to process authentication data",
           variant: "destructive",
         });
         navigate("/login");
@@ -92,7 +70,7 @@ export function GoogleCallback() {
     };
 
     handleGoogleCallback();
-  }, [searchParams, navigate, login, toast, isLoading]);
+  }, [searchParams, navigate, login, toast]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
