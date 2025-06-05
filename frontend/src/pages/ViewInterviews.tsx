@@ -43,7 +43,7 @@ const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="bg-background rounded-lg shadow-lg max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
-        <button onClick={onClose} className="absolute top-2 right-2 text-lg font-bold"></button>
+        <button onClick={onClose} className="absolute top-2 right-2 text-lg font-bold">×</button>
         {children}
       </div>
     </div>

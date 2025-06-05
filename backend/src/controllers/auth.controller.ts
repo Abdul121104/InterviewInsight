@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  redirectUri: process.env.GOOGLE_REDIRECT_URI
+  redirectUri: "https://interview-frontend-tedn.onrender.com/auth/google/callback"
 });
 
 // Debug route to check existing users
@@ -176,18 +176,18 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
 export const handleGoogleCallback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { code } = req.query;
+    const { code } = req.body;
     console.log('Received code:', code);
     
     if (!code) {
-      console.error('No code provided in query parameters');
-      res.redirect(`${process.env.FRONTEND_URL}/login?error=no_code`);
+      console.error('No code provided in request body');
+      res.status(400).json({ error: "Authorization code is required" });
       return;
     }
 
-    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_REDIRECT_URI) {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       console.error('Missing Google OAuth credentials');
-      res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+      res.status(500).json({ error: "Server configuration error" });
       return;
     }
 
@@ -198,15 +198,15 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const oauth2Client = new OAuth2Client({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: process.env.GOOGLE_REDIRECT_URI
+        redirectUri: "https://interview-frontend-tedn.onrender.com/auth/google/callback"
       });
 
-      const { tokens } = await oauth2Client.getToken(code as string);
+      const { tokens } = await oauth2Client.getToken(code);
       console.log('Received tokens:', tokens);
       
       if (!tokens.id_token) {
         console.error('No ID token in response');
-        res.redirect(`${process.env.FRONTEND_URL}/login?error=invalid_token`);
+        res.status(400).json({ error: "Invalid token response from Google" });
         return;
       }
 
@@ -218,7 +218,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const payload = ticket.getPayload();
       if (!payload) {
         console.error('No payload in ticket');
-        res.redirect(`${process.env.FRONTEND_URL}/login?error=invalid_token`);
+        res.status(400).json({ error: "Invalid Google token" });
         return;
       }
 
@@ -254,8 +254,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
         { expiresIn: '24h' }
       );
 
-      // Create the auth data to be passed to frontend
-      const authData = {
+      res.status(200).json({
         success: true,
         user: {
           id: user._id,
@@ -263,17 +262,16 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
           name: user.name || user.googleName
         },
         token
-      };
-
-      // Redirect to frontend with auth data
-      const encodedData = encodeURIComponent(JSON.stringify(authData));
-      res.redirect(`${process.env.FRONTEND_URL}/auth/google/callback?data=${encodedData}`);
-    } catch (error) {
-      console.error('Error in Google callback:', error);
-      res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
+      });
+    } catch (tokenError) {
+      console.error('Error exchanging code for token:', tokenError);
+      res.status(400).json({ 
+        error: "Failed to exchange code for token",
+        details: tokenError instanceof Error ? tokenError.message : "Unknown error"
+      });
     }
   } catch (error) {
-    console.error('Error in handleGoogleCallback:', error);
-    res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+    console.error('Google callback error:', error);
+    next(error);
   }
 }; 

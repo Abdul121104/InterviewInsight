@@ -62,14 +62,13 @@ export function Login() {
 
   const handleGoogleSignIn = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
-    const redirectUri = `${base}/api/auth/google/callback`;
+    const redirectUri = "https://interview-frontend-tedn.onrender.com/auth/google/callback";
     const scope = "email profile";
     const responseType = "code";
     const accessType = "offline";
     const prompt = "consent";
     
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
     
     window.location.href = googleAuthUrl;
   };

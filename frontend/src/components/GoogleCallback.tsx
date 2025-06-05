@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/components/ui/use-toast";
@@ -8,59 +8,84 @@ export function GoogleCallback() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const processedCodeRef = useRef<string | null>(null);
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
-      const data = searchParams.get("data");
-      const error = searchParams.get("error");
+      const code = searchParams.get("code");
+      console.log('Received code from URL:', code);
 
-      if (error) {
+      if (!code) {
         toast({
           title: "Error",
-          description: "Failed to authenticate with Google. Please try again.",
+          description: "No authorization code received from Google",
           variant: "destructive",
         });
         navigate("/login");
         return;
       }
 
-      if (!data) {
-        toast({
-          title: "Error",
-          description: "No authentication data received",
-          variant: "destructive",
-        });
-        navigate("/login");
+      // Skip if we've already processed this code
+      if (processedCodeRef.current === code) {
         return;
       }
+
+      // Skip if we're already loading
+      if (isLoading) {
+        return;
+      }
+
+      setIsLoading(true);
+      processedCodeRef.current = code;
 
       try {
-        const authData = JSON.parse(decodeURIComponent(data));
-        
-        if (authData.success && authData.user && authData.token) {
-          // Store the auth data
-          await login(authData.user, authData.token);
-          
-          // Show success message
+        // Clear the URL parameters immediately to prevent reuse
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        console.log('Sending code to backend:', code);
+        const base = import.meta.env.VITE_Base_api || process.env.Base_api || "http://localhost:4000";
+        const response = await fetch(`${base}/api/auth/google/callback`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code }),
+          credentials: 'include'
+        });
+
+        const data = await response.json();
+        console.log('Backend response:', data);
+
+        if (!response.ok) {
+          if (data.error === 'Failed to exchange code for token' && data.details === 'invalid_grant') {
+            // If the code was already used, redirect to login
+            toast({
+              title: "Session expired",
+              description: "Please try signing in again",
+              variant: "destructive",
+            });
+            navigate("/login");
+            return;
+          }
+          throw new Error(data.error || data.details || "Failed to authenticate with Google");
+        }
+
+        if (data.success && data.user && data.token) {
+          await login(data.user, data.token);
           toast({
             title: "Success!",
             description: "You have been logged in with Google.",
           });
-
-          // Force a small delay to ensure the toast is visible
-          setTimeout(() => {
-            // Redirect to home page
-            window.location.href = '/';
-          }, 1000);
+          navigate("/");
         } else {
-          throw new Error("Invalid authentication data");
+          throw new Error("Invalid response format from server");
         }
       } catch (error) {
-        console.error('Error processing auth data:', error);
+        console.error('Google callback error:', error);
         toast({
           title: "Error",
-          description: "Failed to process authentication data",
+          description: error instanceof Error ? error.message : "Something went wrong",
           variant: "destructive",
         });
         navigate("/login");
@@ -70,18 +95,14 @@ export function GoogleCallback() {
     };
 
     handleGoogleCallback();
-  }, [searchParams, navigate, login, toast]);
+  }, [searchParams, navigate, login, toast, isLoading]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold mb-4">Processing Google Sign In...</h2>
-          <p className="text-gray-600 dark:text-gray-400">Please wait while we complete your authentication.</p>
-        </div>
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold mb-4">Processing Google Sign In...</h2>
+        <p className="text-gray-600 dark:text-gray-400">Please wait while we complete your authentication.</p>
       </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 } 
