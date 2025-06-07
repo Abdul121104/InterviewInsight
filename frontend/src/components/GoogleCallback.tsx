@@ -26,12 +26,11 @@ export function GoogleCallback() {
 
       try {
         const base = import.meta.env.VITE_Base_api || "https://interview-i5c0.onrender.com";
-        const response = await fetch(`${base}/api/auth/google/callback`, {
-          method: 'POST',
+        const response = await fetch(`${base}/api/auth/google/callback?code=${code}`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ code }),
           credentials: 'include'
         });
 

@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  redirectUri: "https://interview-frontend-tedn.onrender.com/auth/google/callback"
+  redirectUri: process.env.GOOGLE_REDIRECT_URI || "https://interview-frontend-tedn.onrender.com/auth/google/callback"
 });
 
 // Debug route to check existing users
@@ -176,11 +176,12 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
 export const handleGoogleCallback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { code } = req.body;
+    // Get code from either query params (GET) or body (POST)
+    const code = req.query.code || req.body.code;
     console.log('Received code:', code);
     
     if (!code) {
-      console.error('No code provided in request body');
+      console.error('No code provided');
       res.status(400).json({ error: "Authorization code is required" });
       return;
     }
@@ -198,7 +199,7 @@ export const handleGoogleCallback = async (req: Request, res: Response, next: Ne
       const oauth2Client = new OAuth2Client({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: "https://interview-frontend-tedn.onrender.com/auth/google/callback"
+        redirectUri: process.env.GOOGLE_REDIRECT_URI || "https://interview-frontend-tedn.onrender.com/auth/google/callback"
       });
 
       const { tokens } = await oauth2Client.getToken(code);
