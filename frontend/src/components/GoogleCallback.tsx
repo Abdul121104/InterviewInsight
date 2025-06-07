@@ -13,8 +13,10 @@ export function GoogleCallback() {
   useEffect(() => {
     const handleCallback = async () => {
       const code = searchParams.get('code');
+      console.log('Received code from Google:', code);
       
       if (!code) {
+        console.error('No authorization code received from Google');
         toast({
           title: "Error",
           description: "No authorization code received from Google",
@@ -26,6 +28,8 @@ export function GoogleCallback() {
 
       try {
         const base = import.meta.env.VITE_Base_api || "https://interview-i5c0.onrender.com";
+        console.log('Making request to backend:', `${base}/api/auth/google/callback?code=${code}`);
+        
         const response = await fetch(`${base}/api/auth/google/callback?code=${code}`, {
           method: 'GET',
           headers: {
@@ -34,7 +38,9 @@ export function GoogleCallback() {
           credentials: 'include'
         });
 
+        console.log('Backend response status:', response.status);
         const data = await response.json();
+        console.log('Backend response data:', data);
 
         if (!response.ok) {
           throw new Error(data.error || 'Failed to authenticate with Google');
