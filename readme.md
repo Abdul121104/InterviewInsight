@@ -1,23 +1,49 @@
-# Full-Stack Interview Project
+# Full-Stack Interview Platform
 
-A modern full-stack application built with React, TypeScript, and Node.js, featuring a beautiful UI powered by Shadcn and Tailwind CSS.
+A scalable and secure full-stack web application designed for interview preparation and productivity. Built using modern technologies such as React, TypeScript, Node.js, and MongoDB. The platform features a rich UI, robust authentication, and real-time editing capabilities.
 
-## 📝 Description
+---
 
-This project is a full-stack application that demonstrates modern web development practices. It features a responsive frontend built with React and TypeScript, and a robust backend powered by Node.js and Express.
+## Table of Contents
 
-### Key Features
-- Modern, responsive UI with Shadcn components
-- Type-safe development with TypeScript
-- RESTful API architecture
-- Authentication and authorization
-- MongoDB database integration
-- Google authentication support
-- Rich text editing capabilities
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Building for Production](#building-for-production)
+- [Contributing](#contributing)
+- [Author](#author)
+- [Support](#support)
 
-## 🚀 Technologies Used
+---
+
+## Overview
+
+This project serves as a comprehensive platform for users to prepare for interviews. It allows users to create, edit, and manage interview preparation notes. Additionally, it includes AI-powered assistance and secure login mechanisms to ensure a personalized and seamless experience.
+
+---
+
+## Key Features
+
+- Fully responsive frontend with Tailwind CSS and Shadcn UI components
+- Type-safe development using TypeScript on both frontend and backend
+- RESTful API architecture using Express.js
+- Secure authentication using JWT and Google OAuth 2.0
+- Rich text editing capabilities using TipTap
+- Integration with Gemini API for AI-based assistance
+- MongoDB integration with Mongoose for data persistence
+- Modular folder structure with clean separation of concerns
+
+---
+
+## Tech Stack
 
 ### Frontend
+
 - React 18
 - TypeScript
 - Vite
@@ -28,29 +54,36 @@ This project is a full-stack application that demonstrates modern web developmen
 - Radix UI Components
 
 ### Backend
+
 - Node.js
 - Express
 - TypeScript
 - MongoDB with Mongoose
 - JWT Authentication
-- Google Auth
+- Google OAuth 2.0
 - CORS
 - bcryptjs
 
-## 📋 Prerequisites
+---
+
+## Prerequisites
+
+Before starting the project, ensure the following tools are installed:
 
 - Node.js (v18 or higher)
 - npm or yarn
-- MongoDB (local or Atlas)
+- MongoDB (either local instance or MongoDB Atlas)
 
-## 🛠️ Installation
+---
+
+## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd interview
 ```
-
 2. Install frontend dependencies:
 ```bash
 cd frontend
@@ -79,7 +112,7 @@ MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-FRONTEND_URI
+FRONTEND_URI=
 ```
 
 ## 🚀 Running the Application
@@ -156,4 +189,4 @@ npm i
 
 ## 📞 Support
 
-For support, email leomirandadev@gmail.com or open an issue in the repository. 
+For support, email abdul.rahman121104@gmail.com or open an issue in the repository. 
