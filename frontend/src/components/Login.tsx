@@ -122,7 +122,7 @@ export function Login() {
               </span>
             </div>
           </div>
-          <Button
+          {/* <Button
             variant="outline"
             type="button"
             className="w-full"
@@ -147,7 +147,7 @@ export function Login() {
               />
             </svg>
             Sign in with Google
-          </Button>
+          </Button> */}
         </CardFooter>
       </Card>
     </div>
