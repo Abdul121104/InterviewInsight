@@ -60,18 +60,18 @@ export function Login() {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = "https://interview-frontend-tedn.onrender.com/auth/google/callback";
-    const scope = "email profile";
-    const responseType = "code";
-    const accessType = "offline";
-    const prompt = "consent";
+  // const handleGoogleSignIn = () => {
+  //   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  //   const redirectUri = "https://interview-frontend-tedn.onrender.com/auth/google/callback";
+  //   const scope = "email profile";
+  //   const responseType = "code";
+  //   const accessType = "offline";
+  //   const prompt = "consent";
     
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
+  //   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
     
-    window.location.href = googleAuthUrl;
-  };
+  //   window.location.href = googleAuthUrl;
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black dark:bg-black">
