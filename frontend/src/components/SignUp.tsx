@@ -60,18 +60,18 @@ export function SignUp() {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = `${window.location.origin}/auth/google/callback`;
-    const scope = "email profile";
-    const responseType = "code";
-    const accessType = "offline";
-    const prompt = "consent";
+  // const handleGoogleSignIn = () => {
+  //   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  //   const redirectUri = `${window.location.origin}/auth/google/callback`;
+  //   const scope = "email profile";
+  //   const responseType = "code";
+  //   const accessType = "offline";
+  //   const prompt = "consent";
     
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
+  //   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
     
-    window.location.href = googleAuthUrl;
-  };
+  //   window.location.href = googleAuthUrl;
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black dark:bg-black">
@@ -139,13 +139,13 @@ export function SignUp() {
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
+            {/* <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
                 Or continue with
               </span>
-            </div>
+            </div> */}
           </div>
-          <Button
+          {/* <Button
             variant="outline"
             type="button"
             className="w-full"
@@ -170,7 +170,7 @@ export function SignUp() {
               />
             </svg>
             Sign up with Google
-          </Button>
+          </Button> */}
         </CardFooter>
       </Card>
     </div>
